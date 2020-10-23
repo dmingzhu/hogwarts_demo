@@ -12,10 +12,10 @@ enemy_final_hp = enemy_hp - my_power
 两个hp进行对比，血量剩余多的人获胜
 """
 
-# 让“敌人”的血量和攻击值随机产生
+# 导入库，用于让“敌人”的血量和攻击值随机产生
 import random
 
-
+# 定义fight方法，执行游戏
 def fight(enemy_hp, enemy_power):
     # 初始化“我”的血量值
     my_hp = 1000
