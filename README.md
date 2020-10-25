@@ -1,2 +1,2 @@
-##python实战：第一次作业
+##python实战：
 ./practice/python_oop
