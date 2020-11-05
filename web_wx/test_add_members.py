@@ -75,7 +75,6 @@ class TestContacts:
                 allure.attach.file("./picture/add_members.png", attachment_type=allure.attachment_type.PNG)
             except Exception:
                 raise Exception
-                print("截图失败")
 
             else:
                 print("截图成功")
