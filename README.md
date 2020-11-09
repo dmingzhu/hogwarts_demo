@@ -1,3 +1,6 @@
+##web实战2：
+./web_wx_po_demo
+
 
 
 ##web实战1：
