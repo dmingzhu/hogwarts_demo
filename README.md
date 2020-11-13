@@ -1,3 +1,9 @@
+##mobile实战1：
+./mobile_wx_demo
+
+
+
+
 ##web实战2：
 ./web_wx_po_demo
 
