@@ -1,5 +1,8 @@
-##mobile实战1：
-./mobile_wx_demo
+##app实战2：
+./appe_wx_po_demo
+
+##app实战1：
+./appe_wx_demo
 
 
 
