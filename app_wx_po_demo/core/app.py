@@ -22,7 +22,7 @@ class App(BasePage):
             caps["deviceName"] = "127.0.0.1:7555"
             caps["appPackage"] = "com.tencent.wework"
             caps["appActivity"] = ".launch.WwMainActivity"
-            caps["noReset"] = "True"
+            caps["noReset"] = True
 
             # 与appium服务器建立连接
             self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
