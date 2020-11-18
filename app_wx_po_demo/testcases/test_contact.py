@@ -14,15 +14,15 @@ class TestCase():
     # 测试添加
     def test_add(self):
         # 链式调用
-        name = "user_mobile_02"
-        phone_num = 13310001002
+        name = "user_mobile_07"
+        phone_num = 13310001007
         result = self.main.goto_contact_list().goto_add().goto_add_by_manual().add_members(name, phone_num)
         assert result == "添加成功"
 
     # 测试删除
     def test_del(self):
         # 返回删除后的结果
-        name = "user_mobile_02"
+        name = "user_mobile_07"
         result = self.main.goto_contact_list().goto_delete_by_search(name)
         assert result == "无搜索结果"
 

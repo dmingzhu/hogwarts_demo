@@ -4,6 +4,7 @@
 from appium import webdriver
 
 from app_wx_po_demo.core.base_page import BasePage
+from framework.page.main import Main
 
 """
 对app常用的方法，进行封装
@@ -20,7 +21,7 @@ class App(BasePage):
             caps["deviceName"] = "127.0.0.1:7555"
             caps["appPackage"] = "com.tencent.wework"
             caps["appActivity"] = ".launch.WwMainActivity"
-            caps["noRest"] = True
+            caps["noReset"] = True
             self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
         else:
             self.driver.launch_app()
@@ -31,7 +32,7 @@ class App(BasePage):
         pass
 
     def stop(self):
-        pass
-
+        self.driver.quit()
+        # pass
     def goto_main(self):
         return Main(self.driver)

@@ -1,9 +1,10 @@
 from appium.webdriver.common.mobileby import MobileBy
 
-from app_wx_po_demo.core.contact_list_page import ContactList
+from framework.page.base_page import BasePage
+from framework.page.conntact_list import ContactList
 
 
-class Main:
+class Main(BasePage):
     def goto_contact_list(self):
         print("跳转到通讯录页面")
         # 移动端的元素定位用mobileby
