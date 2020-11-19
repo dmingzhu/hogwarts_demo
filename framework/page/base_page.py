@@ -16,6 +16,7 @@ class BasePage:
             self.driver = driver
 
     def find(self, by, locator):
+        "添加弹窗异常处理"
         return self.driver.find_element(by, locator)
 
     def find_by_scroll(self, text):
