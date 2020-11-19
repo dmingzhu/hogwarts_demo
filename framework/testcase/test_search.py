@@ -1,3 +1,6 @@
+import pytest
+import yaml
+
 from framework.page.app import App
 
 
@@ -10,6 +13,9 @@ class TestCase:
 
     def test_search(self):
         self.main.goto_contact_list().search()
+        # self.main.step()
 
     def teardown_class(self):
         self.app.stop()
+
+

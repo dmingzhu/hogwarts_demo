@@ -1,0 +1,7 @@
+- by : XPATH
+  locator : '//*[@resource-id="com.tencent.wework:id/i6n"]'
+  action : click
+
+- by : XPATH
+  locator : '//*[@text="搜索"]'
+  action : send
