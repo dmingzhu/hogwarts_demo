@@ -11,7 +11,8 @@ class Main(BasePage):
         print("跳转到通讯录页面")
         # 在main中调用步骤
         self.step_main()
-        # 移动端的元素定位用mobileby
-        # self.find(MobileBy.XPATH, '//*[@text="通讯录"]').click()
-        # self.driver.find_element()
+
+        # 如果是通用的step，在这里需要传入main.yml对应的路径
+        path = "../page/main.yml"
+
         return ContactList(self.driver)
