@@ -1,3 +1,9 @@
+##测试框架：
+./frame
+
+
+
+
 ##app实战2：
 ./appe_wx_po_demo
 
