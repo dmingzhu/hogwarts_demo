@@ -11,13 +11,12 @@ from appium.webdriver import WebElement
 from appium.webdriver.common.mobileby import MobileBy
 
 class BasePage:
-
+    _params = {}
     # basepage初始化了一个driver
     def __init__(self, driver:webdriver=None):
             self.driver = driver
 
     def find(self, by, locator):
-        "添加弹窗异常处理"
         return self.driver.find_element(by, locator)
 
     def find_by_scroll(self, text):
@@ -31,34 +30,33 @@ class BasePage:
         toast_text = self.find(MobileBy.XPATH, "//*[@class='android.widget.Toast']").text
         return toast_text
 
-    def step_main(self):
-        # 这里需要传进来一个参数path, 文件路径不要写死
-        with open("../page/main.yml", encoding="utf-8") as f:
-            steps = yaml.safe_load(f)
-            # print(steps)
-        element = None
-        for step in steps:
-            # print(step)
-            if "by" in step.keys():
-                element = self.find(step["by"], step["locator"])
-            if "action" in step.keys():
-                action = step["action"]
-                if action == "click":
-                    element.click()
 
-    def step_contact_list(self, value = None):
-        with open("../page/contact_list.yml", encoding="utf-8") as f:
+    def click(self, by, locator):
+        return self.find(by, locator).click()
+
+    def send(self, by, locator):
+        return self.find(by, locator).send_keys()
+
+    def steps(self, path):
+        with open(path, encoding="utf-8") as f:
             steps = yaml.safe_load(f)
             # print(steps)
-        element = None
+        element:WebElement = None
+
         for step in steps:
             # print(step)
             if "by" in step.keys():
                 element = self.find(step["by"], step["locator"])
+
             if "action" in step.keys():
                 action = step["action"]
                 if action == "click":
                     element.click()
                 elif action == "send":
-                    element.send_keys(value)
+                    # 读取出send的value
+                    content:str = step["value"]
+                    for param in self._params:
+                        content = content.replace("{%s}"%param, self._params[param])
+                    element.send_keys(content)
+
 

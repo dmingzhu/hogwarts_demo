@@ -11,8 +11,9 @@ class TestCase:
     def setup(self):
         self.main = self.app.start().goto_main()
 
-    def test_search(self):
-        self.main.goto_contact_list().search()
+    @pytest.mark.parametrize("value", yaml.safe_load(open("./contact_list_search.yml", encoding="utf-8")))
+    def test_search(self, value):
+        self.main.goto_contact_list().search(value)
         # self.main.step()
 
     def teardown_class(self):
