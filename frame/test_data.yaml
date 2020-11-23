@@ -1,0 +1,25 @@
+data:
+  - appium
+  - "selenium"
+
+steps:
+  - webdriver:
+      browser: chrome
+
+  - get: https://ceshiren.com/
+
+  - find_element:
+      by : id
+      locator : search-button
+      click : []
+
+#  - find_element: [id, search-term]
+  - find_element:
+      by : id
+      locator : search-term
+      send_keys: "{data}"
+
+#  driver=webdriver.Chrome()
+#  driver.get('https://ceshiren.com/')
+#  driver.find_element(By.ID, 'search-button').click()
+#  driver.find_element(By.ID, 'search-term').send_keys(keyword)

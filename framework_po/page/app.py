@@ -4,7 +4,7 @@
 from appium import webdriver
 
 from app_wx_po_demo.core.base_page import BasePage
-from framework.page.main import Main
+from framework_po.page.main import Main
 
 """
 对app常用的方法，进行封装

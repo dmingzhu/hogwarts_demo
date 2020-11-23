@@ -2,8 +2,8 @@ import pytest
 import yaml
 from appium.webdriver.common.mobileby import MobileBy
 
-from framework.page.base_page import BasePage
-from framework.page.contact_list import ContactList
+from framework_po.page.base_page import BasePage
+from framework_po.page.contact_list import ContactList
 
 
 class Main(BasePage):

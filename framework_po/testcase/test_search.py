@@ -1,7 +1,7 @@
 import pytest
 import yaml
 
-from framework.page.app import App
+from framework_po.page.app import App
 
 
 class TestCase:
