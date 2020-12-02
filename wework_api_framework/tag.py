@@ -9,65 +9,65 @@ from wework_api_framework.wework import WeworkApi
 
 class TagApi(WeworkApi):
     """创建标签"""
-    def creat_tag(self, creat_data):
-        print("打印token", self.token)
-
-        url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create"
-        r_add = requests.post(url=url,
+    def creat_tag(self, url, creat_data):
+        r = requests.post(url=url,
                               params = {"access_token":self.token},
                               json = creat_data)
-        print("创建标签", r_add.json())
+        return r.json()
 
     """获取tag列表"""
-    def get_tag_list(self):
+    def get_tag_list(self, url):
         """获取标签列表"""
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/tag/list'
         token_json = {"access_token":self.token}
-        r_list = requests.get(url=url, params=token_json)
-        print("获取标签列表",r_list.json())
+        r = requests.get(url=url, params=token_json)
+        print("获取标签列表",r.json())
+        return r.json()
 
-    def del_tag_list(self):
-        url = "https://qyapi.weixin.qq.com/cgi-bin/tag/delete"
+    def del_tag(self, url, tagid):
         param = {
-            "access_token": self.token,
-            "tagid" : 12
+            "access_token" : self.token,
+            "tagid" : tagid
+
         }
         r = requests.get(url=url, params=param)
         print("删除标签", r.json())
+        return r.json()
 
-    def add_tag_member(self):
+    def add_tag_user(self, url, tag_id, user_list):
         """增加标签成员"""
-        url2 = 'https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers'
         token_data = {"access_token":self.token}
-        member_data = {
+        user_data = {
             # 需要先创建一个标签，再在这个标签下去添加成员
-            "tagid": 13,
+            "tagid": tag_id,
             # 成员唯一标识：账号，一定要是在通讯录中已经存在的,也就是说，增加标签成员，传的是成员ID
-            "userlist": ["user_tag_01", "user_tag_02"]
+            # "userlist": ["user_tag_01", "user_tag_02"]
+            "userlist":user_list
         }
-        r_tag_member = requests.post(url=url2, params=token_data,json=member_data)
-        print("增加标签成员",r_tag_member.json())
+        r = requests.post(url=url, params=token_data, json=user_data)
+        print("增加标签成员",r.json())
+        return r.json()
 
-
-    def get_tag_member_list(self):
+    def get_tag_user_list(self, url, tag_id):
         """获取成员列表"""
-        url = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get'
-        param = {"access_token":self.token, "tagid":13}
-        r_tag_memlist = requests.get(url=url, params=param)
-        print("获取标签成员",r_tag_memlist.json())
+        param = {"access_token":self.token, "tagid":tag_id}
+        r = requests.get(url=url, params=param)
+        print("获取标签成员",r.json())
+        return r.json()
 
-    def del_tag_member_list(self):
-        pass
+    def del_tag_user(self, url, tag_id, user_list):
+        """删除标签成员"""
+        param = {"access_token":self.token}
+        user_data={
+            "tagid":tag_id,
+            "userlist":user_list
+        }
+        r = requests.post(url=url, params=param, json=user_data)
+        return r.json()
 
 if __name__ == "__main__":
-    # TagApi().del_tag_list()
-    # TagApi().get_tag_list()
-    # TagApi().get_tag_member_list()
+    aa = TagApi()
+    user_list = [ "user_tag_01"]
+    url = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get'
 
-    creat_data = {
-        "tagname": "tag_UI_14",
-        "tagid": 14
-    }
-    TagApi().creat_tag(creat_data)
-
-
+    aa.add_tag_user(url, tag_id=13, user_list=user_list)
+    aa.get_tag_user_list()
