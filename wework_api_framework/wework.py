@@ -7,11 +7,16 @@ class WeworkApi:
         self.token = ""
 
     def get_token(self):
+
         url_get_token= ' https://qyapi.weixin.qq.com/cgi-bin/gettoken'
         param = {
-            "corpid": "ww69694e10de384523",
-            "corpsecret": "pFx93CTsV-VwCe9Or5SsceN_4MGAAaCHbcISj7CpQWQ"
-        }
+                "corpid": "ww69694e10de384523",
+                "corpsecret": "pFx93CTsV-VwCe9Or5Sscfha9MiAHUz9OSc678jB-RY"
+            }
         r = requests.get(url=url_get_token, params=param)
         self.token = r.json()["access_token"]
-        # return TagApi(self.token)
+        print(self.token)
+        return self.token
+
+if __name__ == "__main__":
+    aa = WeworkApi()

@@ -8,11 +8,14 @@ from wework_api_framework.wework import WeworkApi
 
 
 class TagApi(WeworkApi):
-
     """创建标签"""
     def creat_tag(self, creat_data):
+        print("打印token", self.token)
+
         url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create"
-        r_add = requests.post(url=url, params = {"access_token":self.token}, json = creat_data)
+        r_add = requests.post(url=url,
+                              params = {"access_token":self.token},
+                              json = creat_data)
         print("创建标签", r_add.json())
 
     """获取tag列表"""
@@ -58,7 +61,13 @@ class TagApi(WeworkApi):
 
 if __name__ == "__main__":
     # TagApi().del_tag_list()
-    TagApi().get_tag_list()
-    TagApi().get_tag_member_list()
+    # TagApi().get_tag_list()
+    # TagApi().get_tag_member_list()
+
+    creat_data = {
+        "tagname": "tag_UI_14",
+        "tagid": 14
+    }
+    TagApi().creat_tag(creat_data)
 
 

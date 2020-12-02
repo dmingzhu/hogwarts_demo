@@ -7,8 +7,11 @@ class TestTag:
 
     def test_creat_tag(self):
         creat_data = {
-            "tagname": "tag_UI_13",
-            "tagid": 13
+            "tagname": "tag_UI_14",
+            "tagid": 14
         }
         self.api.creat_tag(creat_data)
+
+    def test_get_taglist(self):
+        self.api.get_tag_list()
 
