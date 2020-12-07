@@ -13,6 +13,12 @@ class Tag:
         print("打印token", r.json()["access_token"])
         return r.json()["access_token"]
 
+    def add(self,  url, add_data):
+        param = {"access_token":self.get_token()}
+        r = requests.post(url=url, params=param, json=add_data)
+        # print(r.json())
+        return r.json()
+
 if __name__ == "__main__":
     aa = Tag()
     aa.get_token()

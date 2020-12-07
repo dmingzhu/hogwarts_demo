@@ -5,7 +5,22 @@ class TestTag:
     # 测试用例初始化，火球token
     def setup(self):
         self.tag = Tag()
-        self.api = self.tag.get_token()
 
     def test_add(self):
-        pass
+        url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag"
+        add_data = {
+            "group_id": "GROUP_1",
+            "group_name": "GROUP_NAME_1",
+            "order": 1,
+            "tag": [{
+                "name": "TAG_NAME_1",
+                "order": 1
+            },
+            {
+                "name": "TAG_NAME_2",
+                "order": 2
+        }
+    ]
+}
+        r = self.tag.add(url=url, add_data=add_data)
+        print(r)
