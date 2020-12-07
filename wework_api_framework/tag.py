@@ -9,14 +9,14 @@ from wework_api_framework.wework import WeworkApi
 
 class TagApi(WeworkApi):
     """创建标签"""
-    def creat_tag(self, creat_data):
+    def add_corp_tag(self, add_data):
         print("打印token", self.token)
 
-        url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create"
+        url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag"
         r_add = requests.post(url=url,
                               params = {"access_token":self.token},
-                              json = creat_data)
-        print("创建标签", r_add.json())
+                              json = add_data)
+        print("添加企业客户标签", r_add.json())
 
     """获取tag列表"""
     def get_tag_list(self):

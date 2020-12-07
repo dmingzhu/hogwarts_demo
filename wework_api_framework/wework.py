@@ -11,7 +11,7 @@ class WeworkApi:
         url_get_token= ' https://qyapi.weixin.qq.com/cgi-bin/gettoken'
         param = {
                 "corpid": "ww69694e10de384523",
-                "corpsecret": "pFx93CTsV-VwCe9Or5Sscfha9MiAHUz9OSc678jB-RY"
+                "corpsecret": "pFx93CTsV-VwCe9Or5SscbCNQdxYTg067Wkqms-6Y1M"
             }
         r = requests.get(url=url_get_token, params=param)
         self.token = r.json()["access_token"]

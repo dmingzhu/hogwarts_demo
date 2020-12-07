@@ -5,13 +5,21 @@ class TestTag:
     def setup(self):
         self.api = TagApi()
 
-    def test_creat_tag(self):
-        creat_data = {
-            "tagname": "tag_UI_14",
-            "tagid": 14
-        }
-        self.api.creat_tag(creat_data)
+    def test_add_corp_tag(self):
+        add_data = {
+                "group_id": "GROUP_ID",
+                "group_name": "GROUP_NAME",
+                "order": 1,
+                "tag": [{
+                    "name": "TAG_NAME_1",
+                    "order": 1
+                },
+                    {
+                        "name": "TAG_NAME_2",
+                        "order": 2
+                    }
+                ]
+            }
+        self.api.add_corp_tag(add_data)
 
-    def test_get_taglist(self):
-        self.api.get_tag_list()
 
