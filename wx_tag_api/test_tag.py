@@ -11,16 +11,27 @@ from wx_tag_api.tag import Tag
 
 
 class TestTag:
+    # todo:清理测试环境
     def setup(self):
         self.tag = Tag()
         # 调用get_token()给self.token赋值
         self.tag.get_token()
 
-    def test_get_corp_tag_list(self):
-        self.tag.get_corp_tag_list()
+    #todo:获取所有
+    @pytest.mark.parametrize("tag_ids",[
+        ([])
+    ])
+    def test_get_corp_tag_list(self, tag_ids):
+        r = self.tag.get_corp_tag_list(tag_ids=tag_ids)
+        print(json.dumps(r, indent=2))
 
     @pytest.mark.parametrize("group_name, tag_names", [
-        ("111", [{"name":"222"}])
+        # 新建标签组，添加1个标签
+        ("111", [{"name":"aaa"}]),
+        # 新建标签组，添加2个标签
+        ("222", [{"name": "bbb"}, {"name":"ccc"}])
+        # 新建标签组，不添加标签
+
     ])
     def test_add_crop_tag(self, group_name, tag_names):
         r = self.tag.add_crop_tag(group_name=group_name, tag_names=tag_names)
@@ -39,6 +50,24 @@ class TestTag:
     def test_edit_corp_tag(self):
         pass
 
+    # @pytest.mark.parametrize("tag_ids, group_ids",[
+    #     #指定标签组
+    #     ([], )
+    # ])
+    # def test_del_corp_tag(self, tag_ids):
     def test_del_corp_tag(self):
-        pass
+        #先查列表
+        tag_ids = []
+        r_list = self.tag.get_corp_tag_list(tag_ids=tag_ids)
+        tag_group = r_list["tag_group"]
+        print("打印tag_group",json.dumps(tag_group, indent=2))
+        tag_list = []
+        for tag in tag_group["tag"]:
+            print("打印tag", tag)
+            if "id" in tag:
+                tag_list.append(tag["id"])
+        print("打印tag_list",tag_list)
+        print(json.dumps(r_list,  indent=2))
+        r = self.tag.del_corp_tag(tag_ids=tag_list)
+        print("删除",r)
 

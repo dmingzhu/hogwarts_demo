@@ -31,13 +31,13 @@ class Tag:
     """
     获取列表
     """
-    def get_corp_tag_list(self, tag_id):
+    def get_corp_tag_list(self, tag_ids):
         url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_corp_tag_list"
         param = {
             "access_token":self.token
         }
         json = {
-            "tag_id": tag_id
+            "tag_id": tag_ids
         }
         r = requests.post(url=url, params=param, json=json)
         # print(json.dumps(r.json(), indent=2))
@@ -63,9 +63,17 @@ class Tag:
     def edit_corp_tag(self):
         pass
 
-    def del_corp_tag(self):
-        pass
-
+    def del_corp_tag(self, tag_ids):
+        url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag"
+        param = {
+            "access_token": self.token
+        }
+        json = {
+            # tag_ids，group_id列表
+            "tag_id":tag_ids
+        }
+        r = requests.post(url=url, params=param, json=json)
+        return r.json()
 
 if __name__ == "__main__":
     AA = Tag()
