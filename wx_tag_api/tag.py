@@ -6,7 +6,7 @@ import json
 
 import requests
 corpid = "ww69694e10de384523"
-corpsecret = "_yb7L6V2q0Guqk44vdR9ju7fAjDYH8IH6_9nwp7472c"
+corpsecret = "_yb7L6V2q0Guqk44vdR9jnwD4uZhJouC5oDlUEfBMV4"
 
 class Tag:
     """
@@ -27,7 +27,7 @@ class Tag:
         r = requests.get(url=url, params=param)
         # print(json.dumps(r.json(), indent = 2))
         self.token =  r.json()["access_token"]
-
+        # print(self.token)
     """
     获取列表
     """
@@ -36,11 +36,11 @@ class Tag:
         param = {
             "access_token":self.token
         }
-        json = {
+        json_data = {
             "tag_id": tag_id
         }
-        r = requests.post(url=url, params=param, json=json)
-        # print(json.dumps(r.json(), indent=2))
+        r = requests.post(url=url, params=param, json=json_data)
+        print(json.dumps(r.json(), indent=2))
         return r.json()
 
     """
@@ -51,12 +51,14 @@ class Tag:
         param = {
              "access_token": self.token
          }
-        json = {
+        json_data = {
+            # 传入标签组名
             "group_name": group_name,
+            # 传入标签名，参数以列表的形式存储[{'name':'tag_name1'},{'name':'tag_name2'}]
             "tag": tag_names
             }
 
-        r = requests.post(url=url , params=param,  json= json)
+        r = requests.post(url=url , params=param,  json= json_data)
         # print(json.dumps(r.json(), indent=2))
         return r.json()
 
@@ -70,5 +72,7 @@ class Tag:
 if __name__ == "__main__":
     AA = Tag()
     AA.get_token()
-    # AA.get_corp_tag_list()
+    # AA.get_token()
+    tag_id = []
+    # AA.get_corp_tag_list(tag_id)
     # AA.add_crop_tag()

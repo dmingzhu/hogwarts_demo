@@ -16,11 +16,17 @@ class TestTag:
         # 调用get_token()给self.token赋值
         self.tag.get_token()
 
-    def test_get_corp_tag_list(self):
-        self.tag.get_corp_tag_list()
+    #todo:测试获取企业标签库
+    def test_get_corp_tag_list(self, tag_id):
+        self.tag.get_corp_tag_list(tag_id=tag_id)
 
     @pytest.mark.parametrize("group_name, tag_names", [
-        ("111", [{"name":"222"}])
+        # 标签组名，单个标签名
+        ("111", [{"name":"333"}]),
+        #标签组名，多个标签名
+        ("111", [{"name": "tag_name1"},{"name":"tag_name2"}])
+        #标签组名，不存在的标签名
+    #     没有
     ])
     def test_add_crop_tag(self, group_name, tag_names):
         r = self.tag.add_crop_tag(group_name=group_name, tag_names=tag_names)
