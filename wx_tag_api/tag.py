@@ -6,7 +6,7 @@ import json
 
 import requests
 corpid = "ww69694e10de384523"
-corpsecret = "_yb7L6V2q0Guqk44vdR9jnwD4uZhJouC5oDlUEfBMV4"
+corpsecret = "_yb7L6V2q0Guqk44vdR9ju7fAjDYH8IH6_9nwp7472c"
 
 class Tag:
     """
@@ -27,20 +27,20 @@ class Tag:
         r = requests.get(url=url, params=param)
         # print(json.dumps(r.json(), indent = 2))
         self.token =  r.json()["access_token"]
-        # print(self.token)
+
     """
     获取列表
     """
-    def get_corp_tag_list(self, tag_id):
+    def get_corp_tag_list(self, tag_ids):
         url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_corp_tag_list"
         param = {
             "access_token":self.token
         }
-        json_data = {
-            "tag_id": tag_id
+        json = {
+            "tag_id": tag_ids
         }
-        r = requests.post(url=url, params=param, json=json_data)
-        print(json.dumps(r.json(), indent=2))
+        r = requests.post(url=url, params=param, json=json)
+        # print(json.dumps(r.json(), indent=2))
         return r.json()
 
     """
@@ -51,28 +51,32 @@ class Tag:
         param = {
              "access_token": self.token
          }
-        json_data = {
-            # 传入标签组名
+        json = {
             "group_name": group_name,
-            # 传入标签名，参数以列表的形式存储[{'name':'tag_name1'},{'name':'tag_name2'}]
             "tag": tag_names
             }
 
-        r = requests.post(url=url , params=param,  json= json_data)
+        r = requests.post(url=url , params=param,  json= json)
         # print(json.dumps(r.json(), indent=2))
         return r.json()
 
     def edit_corp_tag(self):
         pass
 
-    def del_corp_tag(self):
-        pass
-
+    def del_corp_tag(self, tag_ids):
+        url = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag"
+        param = {
+            "access_token": self.token
+        }
+        json = {
+            # tag_ids，group_id列表
+            "tag_id":tag_ids
+        }
+        r = requests.post(url=url, params=param, json=json)
+        return r.json()
 
 if __name__ == "__main__":
     AA = Tag()
     AA.get_token()
-    # AA.get_token()
-    tag_id = []
-    # AA.get_corp_tag_list(tag_id)
+    # AA.get_corp_tag_list()
     # AA.add_crop_tag()
