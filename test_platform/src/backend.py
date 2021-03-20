@@ -8,6 +8,7 @@ import json
 from flask import Flask, request
 from flask_restful import Api, Resource
 from flask_sqlalchemy import SQLAlchemy
+from jenkinsapi.jenkins import Jenkins
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,6 +21,14 @@ def hello():
 # pymsql
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://用户名:密码@域名或ip:端口/数据库'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@192.168.99.100:3306/testPlatform'
+
+app.config['jenkins'] = Jenkins(
+        "http://192.168.99.100:8080/",
+        username="admin",
+        password="6a9eb15459dc48de87c0acee229847ac"
+    )
+
+
 
 # 初始化SQLAlchemy
 db = SQLAlchemy(app)
@@ -76,7 +85,34 @@ class TaskService(Resource):
             "msg":"ok"
         }
 
+    def put(self):
+        # 找出要执行的任务
+        id = request.json.get('id')
+        if id:
+            task = Task.query.filter_by(id=id).first()
+            testcases_info=[]
+            for id in json.loads(task.testcases):
+                testcase = TestCase.query.filter_by(id=int(id)).first()
+                case_info = {
+                    'name': testcase.name,
+                    'steps': testcase.steps
+                }
+                testcases_info.append(case_info)
 
+            task_info = {
+                'id': task.id,
+                'testcases': testcases_info
+            }
+            # os.system('pytest xx') use jenkins replace
+            jenkins: Jenkins = app.config['jenkins']
+            jenkins['test_platform_testcases'].invoke(
+                build_params={
+                    'task': json.dumps(task_info)
+                }
+            )
+            return {
+                'msg': 'ok'
+            }
 
 # 定义服testcase务
 class TestCaseService(Resource):
@@ -112,7 +148,8 @@ class TestCaseService(Resource):
             "msg":"ok"
         }
 
-
+    def put(self):
+        pass
 
 # 往api添加服务，及其路由
 api.add_resource(TestCaseService, "/testcase")
@@ -120,3 +157,4 @@ api.add_resource(TaskService, "/task")
 
 if __name__ == "__main__":
     app.run(debug=True, port=8384)
+
